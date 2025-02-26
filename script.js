@@ -17,7 +17,7 @@ const pages={
 };
 
 function loadSession(){
-    fetch('http://192.168.1.5:3000/session',{
+    fetch('/session',{
         method:'GET',
         credentials:'include'
     })
@@ -26,14 +26,14 @@ function loadSession(){
         facemash=data //load facemash data
         document.getElementById('navName').innerText=facemash.fName
         document.getElementById('textBox').placeholder=`What's on your mind, ${facemash.fName}?`
-        document.getElementById('navDP').src='http://192.168.1.5:3000/dp/'+facemash.uname
+        document.getElementById('navDP').src='/dp/'+facemash.uname
         populateFriendBox()
         document.getElementById('chatArea').style.display='flex'
     })
     .catch(()=>console.log('Please Login to load username!'))
 }
 function loadNotifs(){
-    fetch('http://192.168.1.5:3000/notifs',{
+    fetch('/notifs',{
         method:'GET',
         credentials:'include'
     })
@@ -66,13 +66,13 @@ function loadPostElement(post){
 
     postElement.innerHTML=`
     <div class="postHead">
-    <div><img src="http://192.168.1.5:3000/dp/${post.uname}" style="width:40px;height:40px; border-radius:50%;object-fit:cover; margin:10px;margin-left:5vw"/></div>
+    <div><img src="/dp/${post.uname}" style="width:40px;height:40px; border-radius:50%;object-fit:cover; margin:10px;margin-left:5vw"/></div>
     <div style='font-size: 20px;margin-left:5px'><strong>${post.fName} ${post.lName}</strong></div>
     </div>
     <div class="commentSection"><p style='margin-top:0'>${post.content}</p></div>
 
     <div class="postPhotuDiv">
-    ${post.image?`<img class="postPhotu" src="http://192.168.1.5:3000/pics/${post.image}" style=""/>`:""}
+    ${post.image?`<img class="postPhotu" src="/pics/${post.image}" style=""/>`:""}
     </div>
 
         <div class="commentSection">
@@ -104,7 +104,7 @@ function loadPostElement(post){
             return
         const commenter=facemash.fName+" "+facemash.lName
         
-        const response=await fetch('http://192.168.1.5:3000/post-comment',{
+        const response=await fetch('/post-comment',{
             method:'POST',
             credentials:'include',
             headers:{'Content-Type':'application/json'},
@@ -119,7 +119,7 @@ function loadPostElement(post){
 }
 function loadFeed(){
     //news feed
-    fetch('http://192.168.1.5:3000/feed',{
+    fetch('/feed',{
         method:'GET',
         credentials:'include'
     })
@@ -134,7 +134,7 @@ function loadFeed(){
     })
 }
 function loadSuggestionBox(){
-    fetch('http://192.168.1.5:3000/suggestion-box',{
+    fetch('/suggestion-box',{
         method:'GET',
         credentials:'include'
     })
@@ -162,7 +162,7 @@ function loadSuggestionBox(){
             suggestionItem.style.cursor='pointer'
 
             const dpImg=document.createElement('img')
-            dpImg.src=`http://192.168.1.5:3000/dp/${user.uname}`
+            dpImg.src=`/dp/${user.uname}`
             dpImg.style.width='90px'
             dpImg.style.height='90px'
             dpImg.style.borderRadius='50%'
@@ -190,7 +190,7 @@ async function loadProfile(uname){
         console.error('loadProfile function has no uname input')
         return
     }
-    fetch(`http://192.168.1.5:3000/users/${uname}`,{
+    fetch(`/users/${uname}`,{
         method:'GET',
         credentials:'include'
     })
@@ -213,7 +213,7 @@ async function loadProfile(uname){
             <div id='pDpName'>
 
             <div id='pDp'>
-            <img id='dp' src="http://192.168.1.5:3000/dp/${profile.uname}" alt="DP" style="width:150px; height:150px; border-radius:50%; object-fit:cover"/>
+            <img id='dp' src="/dp/${profile.uname}" alt="DP" style="width:150px; height:150px; border-radius:50%; object-fit:cover"/>
 
             <button id="changePhotoBtn" onclick="document.getElementById('DPinput').click()" style='display:none'>Change Photo</button>
             <input type='file' id='DPinput' accept='image/jpeg, image/png' style='display:none' onchange='uploadDP(this.files)'>
@@ -263,7 +263,7 @@ function uploadDP(files){
     const formData=new FormData()
     formData.append('dp',file)
 
-    fetch('http://192.168.1.5:3000/upload-dp',{
+    fetch('/upload-dp',{
         method:'POST',
         credentials:'include',
         body:formData
@@ -290,7 +290,7 @@ function showPage(page){
 }
 
 function sendFriendReq(targetUsername){
-    fetch('http://192.168.1.5:3000/send-friend-req',{
+    fetch('/send-friend-req',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         credentials:'include',
@@ -302,7 +302,7 @@ function sendFriendReq(targetUsername){
     )
 }
 function acceptFriendReq(requesterUsername){
-    fetch('http://192.168.1.5:3000/accept-friend-req',{
+    fetch('/accept-friend-req',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         credentials:'include',
@@ -318,7 +318,7 @@ function acceptFriendReq(requesterUsername){
     })
 }
 function rejectFriendReq(requesterUsername){
-    fetch('http://192.168.1.5:3000/reject-friend-req',{
+    fetch('/reject-friend-req',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         credentials:'include',
@@ -335,7 +335,7 @@ document.getElementById('logo').addEventListener('click',()=>showPage('feed'))
 document.getElementById('userBtn').addEventListener('click',()=>loadProfile(facemash.uname))
 document.getElementById('homeBtn').addEventListener('click',()=>showPage('feed'))
 document.getElementById('logoutBtn').addEventListener('click',()=>{
-    fetch('http://192.168.1.5:3000/logout',{
+    fetch('/logout',{
         method:'POST',
         credentials:'include'
     })
@@ -351,7 +351,7 @@ loginForm.addEventListener('submit',e=>{
     e.preventDefault()
     const lu=document.getElementById('lu').value.trim()
     const lp=document.getElementById('lp').value
-    fetch('http://192.168.1.5:3000/login',{
+    fetch('/login',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         credentials: 'include',
@@ -393,7 +393,7 @@ signupForm.addEventListener('submit',e=>{
 
 
     //send req to backend
-    fetch('http://192.168.1.5:3000/signup',{
+    fetch('/signup',{
         method:'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({
@@ -427,7 +427,7 @@ createpostForm.addEventListener('submit',e=>{
     if(postPhoto.files.length>0)
         formData.append('pic',postPhoto.files[0])
 
-    fetch('http://192.168.1.5:3000/createPost',{
+    fetch('/createPost',{
         method:'POST',
         body:formData,
         credentials:'include'
@@ -455,7 +455,7 @@ loadNotifs()
 loadFeed()
 loadSuggestionBox()
 // Page after refresh/reload
-fetch('http://192.168.1.5:3000/session',{credentials:'include'})
+fetch('/session',{credentials:'include'})
 .then(res=>res.json())
 .then(data=>{
     if(data.uname){
@@ -485,7 +485,7 @@ function populateFriendBox(){
 
         // dp
         const friendDp=document.createElement('img')
-        friendDp.src=`http://192.168.1.5:3000/dp/${friend}`
+        friendDp.src=`/dp/${friend}`
         friendDp.classList.add('friendDp')
         friendDp.style='width:25px;height:25px; border-radius:50%;object-fit:cover;'
 
@@ -509,7 +509,7 @@ function loadDisplayMsgArea(friend){
     const displayMsgArea=document.getElementById('displayMsgArea')
     displayMsgArea.innerHTML=''
 
-    fetch(`http://192.168.1.5:3000/conversation/${friend}`,{credentials:'include'})
+    fetch(`/conversation/${friend}`,{credentials:'include'})
     .then(r=>r.json())
     .then(conversation=>{
         if(!conversation.messages||conversation.messages.length===0)
@@ -529,7 +529,7 @@ function loadDisplayMsgArea(friend){
     .catch(e=>console.error('err fetching convo:',e))
 }
 
-const socket=io('http://192.168.1.5:3000',{withCredentials:true})
+const socket=io('',{withCredentials:true})
 
 function appendSocketMsg(msg){
     const displayMsgArea=document.getElementById('displayMsgArea')
@@ -608,7 +608,7 @@ function searchUsers(){
     }
 
     console.log(query)
-    fetch('http://192.168.1.5:3000/search',{
+    fetch('/search',{
         method:'POST',
         credentials:'include',
         headers:{'Content-Type':'application/json'},
@@ -639,7 +639,7 @@ function searchUsers(){
 
             const searchUserDp=document.createElement('img')
             searchUserDp.classList.add('searchUserDp')
-            searchUserDp.src=`http://192.168.1.5:3000/dp/${user.uname}`
+            searchUserDp.src=`/dp/${user.uname}`
 
             const searchUserName=document.createElement('span')
             searchUserName.textContent=`${user.fName} ${user.lName}`

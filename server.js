@@ -13,10 +13,15 @@ const port = 3000
 
 Facemash.use(express.json());
 Facemash.use(cors({
-  origin: ['http://127.0.0.1:8080', 'http://localhost:8080','http://192.168.1.5:8080'],
+  origin: ['http://127.0.0.1:3000', 'http://localhost:3000','http://192.168.1.5:3000'],
   credentials: true
 }))
 
+Facemash.use(express.static(path.join(__dirname)))
+
+Facemash.get('/',(req,res)=>{
+  res.sendFile(path.join(__dirname,'index.html'))
+})
 
 mongoose.connect('mongodb+srv://iharshgarg:2NzAVwqf7J0UuyOU@cluster0.nb2qd.mongodb.net/facemash', { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('failed to connect mongo-server', err))
@@ -79,7 +84,7 @@ function isAuthenticated(req, res, next) {
 const server = http.createServer(Facemash)
 const io = socketIo(server, {
   cors: {
-    origin: ['http://192.168.1.5:8080','http://127.0.0.1:8080', 'http://localhost:8080', 'file:///Users/harshagarwal/Desktop/testsocket.html'],
+    origin: ['http://192.168.1.5:3000','http://127.0.0.1:3000', 'http://localhost:3000'],
     credentials: true
   }
 })
@@ -385,7 +390,7 @@ Facemash.post('/send-friend-req', isAuthenticated, async (req, res) => {
   //check already friend req received
   const currentUser = await User.findOne({ uname: req.session.user.uname })
   if (currentUser.friendRequests.includes(targetUsername)) {
-    fetch('http://192.168.1.5:3000/accept-friend-req', {
+    fetch('/accept-friend-req', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -491,9 +496,6 @@ Facemash.post('/search',isAuthenticated,async(req,res)=>{
   }
 })
 
-// server.listen(port, () => {
-//   console.log(`Facemash Backend server live on port ${port}!`)
-// })
 server.listen(port,'0.0.0.0', () => {
-  console.log(`Facemash Backend server live on port ${port}!`)
+  console.log(`Facemash Server live on port ${port}!`)
 })
