@@ -314,7 +314,7 @@ function acceptFriendReq(requesterUsername){
         loadNotifs()
         loadFeed()
         populateFriendBox()
-        window.location.reload()
+        // window.location.reload()
     })
 }
 function rejectFriendReq(requesterUsername){
@@ -343,7 +343,7 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
         Object.keys(facemash).forEach(k=>facemash[k]=null)
         document.getElementById('chatArea').style.display='none'
         showPage('login')
-        window.location.reload()
+        // window.location.reload()
     })
 })
 
@@ -363,7 +363,7 @@ loginForm.addEventListener('submit',e=>{
             loadSession()
             loadNotifs()
             loadFeed()
-            window.location.reload()
+            // window.location.reload()
             return null
         }
         return res.text()
