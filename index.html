@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Facemash</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav style="display: none;">
+        <div id="blueBar"">
+
+            <div class="logo" id="logo">facemash</div>
+
+            <!-- Search -->
+            <div id="searchBarAndList">
+                <input type="text" id="searchBar" placeholder="🔍 Search Name, Contact or Email">
+                <div id="searchResults"></div>
+            </div>
+
+            <div id="navBtnsDiv">
+                <!-- User Button -->
+                <div id="userBtn" class="navBtn" role="button" tabindex="0">
+                    <img id="navDP" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />
+                    <strong><div id="navName"></div></strong>
+                </div>
+                <!-- Home Button -->
+                <div id="homeBtn" class="navBtn" role="button" tabindex="0"><strong>Home</strong></div>
+                <!-- Logout Button -->
+                <div id="logoutBtn" class="navBtn" role="button" tabindex="0"><strong>Logout</strong></div>
+            </div>
+            
+        </div>
+
+        <!-- Notifications -->
+        <ul id="notifList" style="font-size: larger;"></ul>
+    </nav>
+
+    <!-- Login Page -->
+    <div id="loginPage" style="display: block;">
+        <form id="loginForm">
+            <div class="logo2">facemash</div>
+            <div id="loginFormDiv">
+                <input type="text" id="lu" placeholder="Name, Email or Phone" required>
+                <input type="password" id="lp" placeholder="Password" required>
+                <button id="loginBtn" type="submit" style="background-color: rgb(55, 90, 184);color: white;"><strong>Login</strong></button>
+            </div>
+        </form>
+
+
+        <div id="minDiv" style="display: flex;align-items: center;justify-content: space-around">
+            <img src="/min.png" height="100px">
+            <form id="signupForm">
+                    <div id="signupFormDiv">
+                    <div style="margin-left: 10px;font-size: 28px;"><h1>Create an account</h1></div>
+    
+                    <div style="display: flex;">
+                        <div><input type="text" id="fName" placeholder="First name" style="height: 30px; width: 220px;margin: 12px;" required></div>
+                        <div><input type="text" id="lName" placeholder="Last name" style="height: 30px; width: 220px;margin: 12px;" required></div>
+                    </div>
+                    <div><input type="text" id="su" placeholder="Username" style="height: 30px; width: 470px;margin: 12px;" required></div>
+                    <div><input type="text" id="contact" placeholder="Mobile number or Email" style="height: 30px; width: 470px;margin: 12px;" required></div>
+                    <div style="display: flex;">
+                        <div><input type="password" id="sp" placeholder="Password" style="height: 30px; width: 220px;margin: 12px;" required></div>
+                        <div><input type="password" id="cp" placeholder="Confirm password" style="height: 30px; width: 220px;margin: 12px;" required></div>
+                    </div>
+    
+                    <div style="margin-left: 15px;font-size:larger;margin-bottom: 5px;margin-top: 5px;"><label for="dob">Birthday</label></div>
+                    <div style="margin-left: 15px;margin-bottom: 25px;"><input type="date" id="dob" style="font-size: 20px;" required></div>
+                    <div style="margin-left: 15px;">
+                        <input type="radio" name="sex" id="male" value="Male" style="margin-left: 70px;" required>
+                        <label for="male">Male</label>
+                        <input type="radio" name="sex" id="female" value="Female" style="margin-left: 70px;">
+                        <label for="female">Female</label>
+                    </div>
+                    <div style="margin-left: 18px;margin-top: 25px;"><button type="submit" style="font-size: x-large;width: 160px;padding: 5px;background-color: rgb(114, 157, 88);color: white;border-radius: 5px;"><strong>Sign Up</strong></button></div>
+                </div>
+                </form>
+        </div>
+    </div>
+
+
+    <!-- Feed Page -->
+    <div id="feedPage" style="display: none;">
+        <div id="createPostWrap">
+
+            <form id="createpostForm" enctype="multipart/form-data">
+                <textarea id="textBox" name="textBox" placeholder="What's on your mind?" rows="4" cols="50"></textarea>
+                <br>
+                <input type="file" name="pic" id="postPhoto" accept="image/*" style="display: none;">
+                <button type="submit">Post</button>
+                <button type="button" id="uploadPhoto">Upload Photo</button>
+        </div>
+        </form>
+
+        <!-- Suggestion Box -->
+         <div id="suggestionBoxWrap">
+            <div id="suggestionHeading">Suggestions:</div>
+             <div id="suggestionBox">
+             </div>
+         </div>
+
+        <div id="FeedPosts"></div>
+    </div>
+
+
+    <!-- Profile Page -->
+    <div id="profilePage" style="display: none;"></div>
+
+
+    <!-- Chat Area -->
+    <div id="chatArea" style="display: none; align-items: flex-end;position: fixed; bottom: 5vh; right: 0;">
+
+        <!-- chatbox -->
+        <div id="chatBox" class="twoBoxes" style="display: none; flex-direction: column;">
+            <div id="chatBoxHeadWrap" class="headWraps" style="display: flex; justify-content: space-between;">
+                <div id="chatBoxHead" style="flex-grow: 1;background-color:  #3b5998;color: white;"></div>
+                <button id="closeChatBoxBtn">x</button>
+            </div>
+            <div id="chatBoxBody" style="display: flex; flex-direction: column; flex-grow: 1;">
+                <div id="displayMsgArea" style="flex-grow: 1;"></div>
+                <div id="sendMsgArea" style="display: flex;">
+                    <input type="text" id="msgInput" placeholder="Type a message..." style="flex: 1;">
+                    <button id="sendMsgBtn">Send</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- friendbox -->
+        <div id="friendBox" class="twoBoxes">
+            <div id="friendBoxHeadWrap" class="headWraps"
+                style="display: flex; justify-content: space-between;background-color: rgb(236,239,243);">
+                <div id="friendBoxHead" style="flex-grow: 1; cursor: pointer;background-color: rgb(236,239,243);">Chat
+                </div>
+                <button id="minimizeFriendBoxBtn" style="display: none;">-</button>
+            </div>
+            <div id="friendBoxBody" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <div id="aboutBox" style="display: none;">
+
+        <button id="closeAbout">X</button>
+        <h2>Made with ❤️ in India</h2>
+        <p>Dedicated to Mark Zuckerberg and his creation, Facebook.</p>
+        <p>For best experience please view on Laptop</p>
+        <p>Facemash was actually the former name of Facebook!</p>
+        <h2>Credits</h2>
+        <p>Frontend Developer: Harsh Agarwal</p>
+        <p>Backend Developer: Harsh Agarwal</p>
+        <p>Security Analyst: Harsh Agarwal</p>
+        <p>Web Architect: Harsh Agarwal</p>
+        <p>कर्ता धर्ता: Harsh Agarwal</p>
+
+    </div>
+
+    <footer><div id="foot">About Facemash</div></footer>
+
+
+    <script src="http://192.168.1.5:3000/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
