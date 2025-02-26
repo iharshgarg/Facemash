@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const http = require('http')
 const socketIo = require('socket.io')
 
-const Facemash = express()
+const Facemash = express();
 const port = 3000
 
 Facemash.use(express.json());
