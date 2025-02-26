@@ -17,10 +17,10 @@ Facemash.use(cors({
   credentials: true
 }))
 
-Facemash.use(express.static(path.join(__dirname)))
+Facemash.use(express.static(path.join(__dirname,'public')))
 
 Facemash.get('/',(req,res)=>{
-  res.sendFile(path.join(__dirname,'index.html'))
+  res.sendFile(path.join(__dirname,'public','index.html'))
 })
 
 mongoose.connect('mongodb+srv://iharshgarg:2NzAVwqf7J0UuyOU@cluster0.nb2qd.mongodb.net/facemash', { useNewUrlParser: true, useUnifiedTopology: true })
