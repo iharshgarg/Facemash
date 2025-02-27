@@ -293,29 +293,30 @@ footer{
     color: white;
     background-color: #3b5998;
     position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0%;
-    padding-left: 10vw;
-    padding-top: 25vh;
     z-index: 100000;
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    padding-top: 10%;
+    padding-left: 5%;
 }
 #closeAbout{
     position: fixed;
-    font-size: 40px;
-    left: 90vw;
+    font-size: 30px;
+    left: 90%;
+
 }
-/* 
-@media only screen and (orientation: portrait) {
+
+@media only screen and (max-width: 475px) {
     .post{
         margin-left: 3vw;
         margin-right: 3vw;
     }
     #blueBar{
-        height: 5vh;
+        height: 10vh;
     }
     #searchBar{
-        margin-top: 1.6vh;
+        margin-top: 3.2vh;
     }
     body{
         font-size: xx-large;
@@ -347,12 +348,8 @@ footer{
     #searchBarAndList{
         margin-left: 3px;
     }
-    #navBtnsDiv,.navName {
-        font-size: 35px;
-    }
-    #notifList {
-        margin-top: 6vh;
-    }
+    /* #navBtnsDiv,.navName {
+    } */
     .logo2{
         font-size: 5vh;
         margin-left: 1.5vh;
@@ -370,4 +367,8 @@ footer{
     #minDiv{
         margin-top: 14vh;
     }
-} */
+    #aboutBox{
+        font-size: x-large;
+        padding-top: 30%;
+    }
+}
