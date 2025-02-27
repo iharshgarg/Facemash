@@ -152,10 +152,10 @@ Facemash.get('/conversation/:username', isAuthenticated, async (req, res) => {
 
 // ////////////////////////
 
-const dpFolder = path.join(__dirname, 'dp')
+const dpFolder = path.join(__dirname,'disk', 'dp')
 if (!fs.existsSync(dpFolder))
   fs.mkdirSync(dpFolder)
-const picsFolder = path.join(__dirname, 'pics')
+const picsFolder = path.join(__dirname,'disk', 'pics')
 if (!fs.existsSync(picsFolder))
   fs.mkdirSync(picsFolder)
 const storage = multer.diskStorage({
