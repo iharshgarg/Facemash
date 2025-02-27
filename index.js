@@ -13,14 +13,14 @@ const port = 3000
 
 Facemash.use(express.json());
 Facemash.use(cors({
-  origin: ['http://127.0.0.1:3000', 'http://localhost:3000','http://192.168.1.5:3000'],
+  origin: ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://192.168.1.5:3000'],
   credentials: true
 }))
 
-Facemash.use(express.static(path.join(__dirname,'public')))
+Facemash.use(express.static(path.join(__dirname, 'public')))
 
-Facemash.get('/',(req,res)=>{
-  res.sendFile(path.join(__dirname,'public','index.html'))
+Facemash.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 mongoose.connect('mongodb+srv://iharshgarg:2NzAVwqf7J0UuyOU@cluster0.nb2qd.mongodb.net/facemash', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -84,7 +84,7 @@ function isAuthenticated(req, res, next) {
 const server = http.createServer(Facemash)
 const io = socketIo(server, {
   cors: {
-    origin: ['http://192.168.1.5:3000','http://127.0.0.1:3000', 'http://localhost:3000'],
+    origin: ['http://192.168.1.5:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'],
     credentials: true
   }
 })
@@ -152,14 +152,14 @@ Facemash.get('/conversation/:username', isAuthenticated, async (req, res) => {
 
 // ////////////////////////
 
-const publicFolder=path.join(__dirname,'public')
-const diskFolder = path.join(__dirname,'disk')
+const publicFolder = path.join(__dirname, 'public')
+const diskFolder = path.join(__dirname, 'disk')
 if (!fs.existsSync(diskFolder))
   fs.mkdirSync(diskFolder)
-const dpFolder = path.join(__dirname,'disk', 'dp')
+const dpFolder = path.join(__dirname, 'disk', 'dp')
 if (!fs.existsSync(dpFolder))
   fs.mkdirSync(dpFolder)
-const picsFolder = path.join(__dirname,'disk', 'pics')
+const picsFolder = path.join(__dirname, 'disk', 'pics')
 if (!fs.existsSync(picsFolder))
   fs.mkdirSync(picsFolder)
 const storage = multer.diskStorage({
@@ -233,11 +233,11 @@ Facemash.get('/pics/:image', isAuthenticated, (req, res) => {
   res.sendFile(path.join(picsFolder, image))
 })
 
-Facemash.get('/session', isAuthenticated, async(req, res) =>{
+Facemash.get('/session', isAuthenticated, async (req, res) => {
 
-  const currentUser=await User.findOne({uname:req.session.user.uname})
+  const currentUser = await User.findOne({ uname: req.session.user.uname })
   res.json({
-    uname:currentUser.uname,
+    uname: currentUser.uname,
     fName: currentUser.fName,
     lName: currentUser.lName,
     friends: currentUser.friends
@@ -253,7 +253,7 @@ Facemash.post('/login', (req, res) => {
     $or: [
       { uname: uname },
       { contact: uname },
-      { fName: new RegExp(`^${uname}$`,'i') }
+      { fName: new RegExp(`^${uname}$`, 'i') }
     ]
   })
     .then(
@@ -266,8 +266,8 @@ Facemash.post('/login', (req, res) => {
           res.status(401).send('Login Failed: invalid credentials!')
         }
       }
-    ).catch(e=>{
-      console.error('Login error:',e)
+    ).catch(e => {
+      console.error('Login error:', e)
       res.status(500).send('internal server error')
     })
 })
@@ -458,48 +458,48 @@ Facemash.get('/suggestion-box', isAuthenticated, async (req, res) => {
   }
 })
 
-Facemash.post('/search',isAuthenticated,async(req,res)=>{
-  const {query}=req.body
-  if(!query||query.trim()==='')
+Facemash.post('/search', isAuthenticated, async (req, res) => {
+  const { query } = req.body
+  if (!query || query.trim() === '')
     return res.status(400).send('Query string required!')
 
-  try{
-    const searchRegex=new RegExp(query,'i')
-    const users=await User.find({
-      $or:[
-        {uname:{$regex:searchRegex}},
-        {fName:{$regex:searchRegex}},
-        {lName:{$regex:searchRegex}},
-        {contact:{$regex:searchRegex}}
+  try {
+    const searchRegex = new RegExp(query, 'i')
+    const users = await User.find({
+      $or: [
+        { uname: { $regex: searchRegex } },
+        { fName: { $regex: searchRegex } },
+        { lName: { $regex: searchRegex } },
+        { contact: { $regex: searchRegex } }
       ]
     }).select('uname fName lName contact')
 
-    const queryLower=query.toLowerCase()
-    const scoredUsers=users.map(user=>{
-      let score=0
-      const fields=['fName','lName','uname','contact']
-      fields.forEach(field=>{
-        if(user[field]){
-          const fieldValue=user[field].toLowerCase()
-          const pos=fieldValue.indexOf(queryLower)
-          if(pos!==-1){
-            const ratio=queryLower.length/fieldValue.length
-            const fieldScore=(pos===0?1:1/(pos+1))*ratio
-            score=Math.max(score,fieldScore)
+    const queryLower = query.toLowerCase()
+    const scoredUsers = users.map(user => {
+      let score = 0
+      const fields = ['fName', 'lName', 'uname', 'contact']
+      fields.forEach(field => {
+        if (user[field]) {
+          const fieldValue = user[field].toLowerCase()
+          const pos = fieldValue.indexOf(queryLower)
+          if (pos !== -1) {
+            const ratio = queryLower.length / fieldValue.length
+            const fieldScore = (pos === 0 ? 1 : 1 / (pos + 1)) * ratio
+            score = Math.max(score, fieldScore)
           }
         }
       })
-      return{user,score}
+      return { user, score }
     })
-    scoredUsers.sort((a,b)=>b.score-a.score)
-    const sortedUsers=scoredUsers.map(item=>item.user)
+    scoredUsers.sort((a, b) => b.score - a.score)
+    const sortedUsers = scoredUsers.map(item => item.user)
     res.json(sortedUsers)
-  }catch(err){
-    console.error('searching error:',err)
+  } catch (err) {
+    console.error('searching error:', err)
     res.status(500).send('server error')
   }
 })
 
-server.listen(port,'0.0.0.0', () => {
+server.listen(port, '0.0.0.0', () => {
   console.log(`Facemash Server live on port ${port}!`)
 })

@@ -87,7 +87,7 @@ body {
     border-bottom: 1px solid #ddd;
     display: flex;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
 .searchUserDp {
@@ -188,7 +188,7 @@ body {
 #suggestionBox {
     align-items: center;
     width: 97vw;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
 }
 
 #suggestionHeading {
@@ -243,38 +243,53 @@ body {
 
 }
 
-#loginBtn{
+#loginBtn {
     height: 25px;
 }
+
 #loginForm {
     background-color: #3b5998;
     height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
 }
-.logo2{
+
+#minDiv {
+    margin-top: 11vh;
+}
+
+.logo2 {
     font-family: 'klavikaboldwebfont', sans-serif;
     color: white;
     text-transform: lowercase;
     margin-left: 70px;
     font-size: 39px;
 }
-#loginFormDiv{
+
+#loginFormDiv {
     display: flex;
     gap: 15px;
     margin-right: 110px;
     align-items: center;
 }
-#lu,#lp{
+
+#lu,
+#lp {
     width: 200px;
     height: 25px;
 }
-#signupFormDiv{
+
+#signupFormDiv {
     display: flex;
     flex-direction: column;
 }
-footer{
+
+footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -285,11 +300,13 @@ footer{
     text-align: center;
     line-height: 5vh;
 }
-#foot{
+
+#foot {
     cursor: pointer;
     display: inline-block;
 }
-#aboutBox{
+
+#aboutBox {
     color: white;
     background-color: #3b5998;
     position: fixed;
@@ -300,7 +317,8 @@ footer{
     padding-top: 10%;
     padding-left: 5%;
 }
-#closeAbout{
+
+#closeAbout {
     position: fixed;
     font-size: 30px;
     left: 90%;
@@ -308,26 +326,34 @@ footer{
 }
 
 @media only screen and (max-width: 475px) {
-    .post{
+    .post {
         margin-left: 3vw;
         margin-right: 3vw;
     }
-    #blueBar{
+
+    #blueBar {
         height: 10vh;
     }
-    #searchBar{
+
+    #searchBar {
         margin-top: 3.2vh;
     }
-    body{
+
+    body {
         font-size: xx-large;
+        height: 160vh;
     }
-    #chatBoxBody,#friendBoxBody {
+
+    #chatBoxBody,
+    #friendBoxBody {
         height: 26vh;
     }
-    #textBox{
+
+    #textBox {
         width: 60vw;
         height: 7vh;
     }
+
     #suggestionBox {
         width: 92vw;
     }
@@ -335,40 +361,54 @@ footer{
     #suggestionHeading {
         margin-right: 70vw;
     }
-    .commentInput,.commentBtn{
+
+    .commentInput,
+    .commentBtn {
         height: 50px;
     }
-    .commentInput{
+
+    .commentInput {
         width: 50vw;
     }
-    .logo{
+
+    .logo {
         font-size: 50px;
         margin-left: 10px;
     }
-    #searchBarAndList{
+
+    #searchBarAndList {
         margin-left: 3px;
     }
-    /* #navBtnsDiv,.navName {
-    } */
-    .logo2{
+
+    .logo2 {
         font-size: 5vh;
         margin-left: 1.5vh;
         margin-right: 1.5vh;
         flex-grow: 1;
     }
-    #loginFormDiv{
+
+    #loginFormDiv {
         height: 3vh;
         margin-right: 3vw;
     }
-    #lu,#lp,#loginBtn{
-        height: 3vh;
+
+    #lu,
+    #lp,
+    #loginBtn {
+        height: 5vh;
         margin: 2px;
     }
-    #minDiv{
-        margin-top: 14vh;
+
+    #minDiv {
+        margin-top: 37vh;
     }
-    #aboutBox{
+
+    #aboutBox {
         font-size: x-large;
         padding-top: 30%;
+    }
+
+    #loginForm {
+        height: 15vh;
     }
 }
