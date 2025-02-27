@@ -305,7 +305,7 @@ footer{
     font-size: 40px;
     left: 90vw;
 }
-
+/* 
 @media only screen and (orientation: portrait) {
     .post{
         margin-left: 3vw;
@@ -360,7 +360,6 @@ footer{
         flex-grow: 1;
     }
     #loginFormDiv{
-        /* andar */
         height: 3vh;
         margin-right: 3vw;
     }
@@ -371,4 +370,4 @@ footer{
     #minDiv{
         margin-top: 14vh;
     }
-}
+} */
