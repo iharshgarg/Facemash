@@ -115,6 +115,14 @@ function loadPostElement(post) {
             commentInput.value = ''
         } else alert('Unable to post comment!')
     })
+
+    commentInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            commentBtn.click()
+        }
+    })
+
     return postElement
 }
 function loadFeed() {
