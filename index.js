@@ -152,7 +152,7 @@ Facemash.get('/conversation/:username', isAuthenticated, async (req, res) => {
 
 // ////////////////////////
 
-
+const publicFolder=path.join(__dirname,'public')
 const diskFolder = path.join(__dirname,'disk')
 if (!fs.existsSync(diskFolder))
   fs.mkdirSync(diskFolder)
@@ -217,11 +217,11 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
     try {
       const user = await User.findOne({ uname })
       if (user.sex === 'Female')
-        filePath = path.join(dpFolder, 'female.jpg')
-      else filePath = path.join(dpFolder, 'male.jpg')
+        filePath = path.join(publicFolder, 'female.jpg')
+      else filePath = path.join(publicFolder, 'male.jpg')
     } catch (e) {
       console.error(e)
-      filePath = path.join(dpFolder, 'male.jpg')
+      filePath = path.join(publicFolder, 'male.jpg')
     }
   }
   res.sendFile(filePath)
