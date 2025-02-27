@@ -152,6 +152,10 @@ Facemash.get('/conversation/:username', isAuthenticated, async (req, res) => {
 
 // ////////////////////////
 
+
+const diskFolder = path.join(__dirname,'disk')
+if (!fs.existsSync(diskFolder))
+  fs.mkdirSync(diskFolder)
 const dpFolder = path.join(__dirname,'disk', 'dp')
 if (!fs.existsSync(dpFolder))
   fs.mkdirSync(dpFolder)
