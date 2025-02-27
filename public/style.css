@@ -48,6 +48,7 @@ body {
     align-items: center;
     gap: 10px;
     border-bottom: 1px solid #ddd;
+    justify-content: space-between;
 }
 
 .msgDiv {
