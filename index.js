@@ -501,5 +501,5 @@ Facemash.post('/search', isAuthenticated, async (req, res) => {
 })
 
 server.listen(port, '0.0.0.0', () => {
-  console.log(`Facemash Server live on port ${port}!`)
+  console.log(`Facemash live on port ${port}!`)
 })

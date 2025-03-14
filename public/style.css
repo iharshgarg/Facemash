@@ -188,8 +188,8 @@ body {
 
 #suggestionBox {
     align-items: center;
-    width: 97vw;
     justify-content: space-evenly;
+    width: 57.4vw;
 }
 
 #suggestionHeading {
@@ -332,17 +332,8 @@ footer {
         margin-right: 3vw;
     }
 
-    #blueBar {
-        height: 10vh;
-    }
-
-    #searchBar {
-        margin-top: 3.2vh;
-    }
-
     body {
-        font-size: xx-large;
-        min-height: 1200px;
+        min-height: 150vh;
     }
 
     #chatBoxBody,
@@ -351,30 +342,16 @@ footer {
     }
 
     #textBox {
-        width: 60vw;
-        height: 7vh;
+        width: 170vw;
+        height: 12vh;
     }
 
     #suggestionBox {
-        width: 92vw;
+        width: 174.5vw;
     }
 
     #suggestionHeading {
         margin-right: 70vw;
-    }
-
-    .commentInput,
-    .commentBtn {
-        height: 50px;
-    }
-
-    .commentInput {
-        width: 50vw;
-    }
-
-    .logo {
-        font-size: 50px;
-        margin-left: 10px;
     }
 
     #searchBarAndList {
@@ -382,7 +359,6 @@ footer {
     }
 
     .logo2 {
-        font-size: 5vh;
         margin-left: 1.5vh;
         margin-right: 1.5vh;
         flex-grow: 1;
@@ -393,15 +369,9 @@ footer {
         margin-right: 3vw;
     }
 
-    #lu,
-    #lp,
-    #loginBtn {
-        height: 5vh;
-        margin: 2px;
-    }
-
     #minDiv {
-        margin-top: 37vh;
+        margin-top: 30vh;
+        flex-direction: column;
     }
 
     #aboutBox {
@@ -409,7 +379,4 @@ footer {
         padding-top: 30%;
     }
 
-    #loginForm {
-        height: 15vh;
-    }
 }
