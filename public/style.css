@@ -59,13 +59,19 @@ body {
 
 #sendMsgArea {
     border-top: 1px solid gray;
-    height: 30px;
     display: flex;
     flex-shrink: 0;
+    background-color: whitesmoke;
+    height: 30px;
 }
 #msgInput{
     flex: 1;
     min-width: 1px;
+    /* font-size: medium; */
+    margin-right: 3px;
+}
+#sendMsgBtn{
+    align-self: stretch;
 }
 
 #displayMsgArea {
@@ -178,7 +184,12 @@ body {
     z-index: 1000;
     position: relative;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    /* overflow: auto; */
+}
+
+#searchResults{
+    overflow-y: auto;
+    max-height: 30vh;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 #createPostWrap {
@@ -473,5 +484,8 @@ footer {
     
     #chatArea {
         margin-right: 5vw;
+    }
+    #msgInput{
+        font-size: smaller;
     }
 }
