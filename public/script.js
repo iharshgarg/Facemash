@@ -58,12 +58,6 @@ function loadNotifs() {
 function loadPostElement(post) {
     const postElement = document.createElement('div')
     postElement.classList.add('post')
-    postElement.style.border = '1px solid #ccc'
-    postElement.style.padding = '10px'
-    postElement.style.borderRadius = '10px'
-    postElement.style.marginTop = '10px'
-    postElement.style.marginBottom = '10px'
-
     postElement.innerHTML = `
     <div class="postHead">
     <div><img src="/dp/${post.uname}" style="width:40px;height:40px; border-radius:50%;object-fit:cover; margin:10px;margin-left:5vw"/></div>
@@ -78,7 +72,7 @@ function loadPostElement(post) {
         <div class="commentSection">
         <div class="commentList">
             ${post.comments.map(comment => `
-                <p><strong>${comment.commenter}</strong> ${comment.commentContent}</p>
+                <p><strong>${comment.commenter}:</strong> ${comment.commentContent}</p>
                 `).join('')}
         </div>
         <input type="text" class="commentInput" placeholder="Write a comment..."/>
@@ -154,7 +148,7 @@ function loadSuggestionBox() {
             suggestionBox.style.overflowX = 'auto'
             suggestionBox.style.padding = '10px'
             suggestionBox.style.border = '1px solid #ccc'
-            suggestionBox.style.borderRadius = '5px'
+            suggestionBox.style.borderRadius = '10px'
             suggestionBox.style.backgroundColor = '#fff'
 
             users.reverse().forEach(user => {
@@ -171,8 +165,8 @@ function loadSuggestionBox() {
 
                 const dpImg = document.createElement('img')
                 dpImg.src = `/dp/${user.uname}`
-                dpImg.style.width = '90px'
-                dpImg.style.height = '90px'
+                dpImg.style.width = '60px'
+                dpImg.style.height = '60px'
                 dpImg.style.borderRadius = '50%'
                 dpImg.style.objectFit = 'cover'
                 dpImg.style.marginBottom = '5px'
@@ -223,7 +217,7 @@ async function loadProfile(uname) {
             <div id='pDpName'>
 
             <div id='pDp'>
-            <img id='dp' src="/dp/${profile.uname}" alt="DP" style="width:150px; height:150px; border-radius:50%; object-fit:cover"/>
+            <img id='dp' src="/dp/${profile.uname}" alt="DP" style="border-radius:50%; object-fit:cover"/>
 
             <button id="changePhotoBtn" onclick="document.getElementById('DPinput').click()" style='display:none'>Change Photo</button>
             <input type='file' id='DPinput' accept='image/jpeg, image/png' style='display:none' onchange='uploadDP(this.files)'>
