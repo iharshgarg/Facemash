@@ -387,10 +387,15 @@ footer {
     width: 150px;
 }
 
+#textBox {
+    font-size: x-large;
+}
+
 @media only screen and (max-width: 475px) {
 
     #textBox {
         width: 75vw;
+        font-size: smaller;
     }
 
     .logo {
