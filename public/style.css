@@ -67,7 +67,7 @@ body {
 #msgInput{
     flex: 1;
     min-width: 1px;
-    /* font-size: medium; */
+    font-size: medium;
     margin-right: 3px;
 }
 #sendMsgBtn{
