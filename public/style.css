@@ -138,7 +138,7 @@ body {
 }
 
 #userBtn {
-    gap: 2px;
+    gap: 6px;
 }
 
 #navBtnsDiv {
@@ -392,6 +392,10 @@ footer {
 }
 
 @media only screen and (max-width: 475px) {
+
+    #userBtn {
+        gap: 2px;
+    }
 
     #textBox {
         width: 75vw;
