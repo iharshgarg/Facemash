@@ -343,18 +343,21 @@ footer {
     color: white;
     background-color: #3b5998;
     position: fixed;
-    z-index: 100000;
+    z-index: 1000;
     top: 0%;
     height: 100%;
     width: 100%;
-    text-align: center;
-    padding-top: 10vh;
+    padding: 10vh 10vw;
+    box-sizing: border-box;
 }
 
 #closeAbout {
-    position: fixed;
     font-size: large;
-    left: 85%;
+}
+#closeAboutDiv{
+    display: flex;
+    justify-content: end;
+
 }
 
 .hafBlank,
@@ -387,8 +390,18 @@ footer {
     width: 150px;
 }
 
+#downloadBtn{
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    height: auto;
+}
+
 
 @media only screen and (max-width: 475px) {
+    #aboutBox {
+        padding: 5vh 5vw;
+    }
 
     #userBtn {
         gap: 2px;
