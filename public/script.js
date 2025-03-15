@@ -42,7 +42,7 @@ function loadNotifs() {
             const notifList = document.getElementById('notifList')
             notifList.innerHTML = ''//reset old notifs
             if (data.friendRequests.length === 0)
-                notifList.innerHTML = '<li>No new Notifications</li>'
+                notifList.innerHTML = '<li>No new friend requests</li>'
             else {
                 data.friendRequests.forEach(requester => {
                     const li = document.createElement('li')
