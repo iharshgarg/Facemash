@@ -244,6 +244,8 @@ body {
     justify-content: space-between;
     padding: 3vw 10vw;
     background-color: rgb(255, 255, 255);
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 #pDp {
@@ -353,6 +355,7 @@ footer {
 
 #closeAbout {
     font-size: large;
+    cursor: pointer;
 }
 #closeAboutDiv{
     display: flex;
