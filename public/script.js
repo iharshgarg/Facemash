@@ -481,7 +481,7 @@ function populateFriendBox() {
         return
     }
     document.getElementById('friendBoxHead').innerText = `Chat(${facemash.friends.length})`
-    facemash.friends.forEach(friend => {
+    facemash.friends.reverse().forEach(friend => {
         const friendDiv = document.createElement('div')
         friendDiv.classList.add('friendDiv')
         friendDiv.style.cursor = 'pointer'
