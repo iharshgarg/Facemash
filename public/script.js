@@ -105,7 +105,7 @@ function loadPostElement(post) {
             body: JSON.stringify({ _id: post._id, commenter, commentContent })
         })
         if (response.ok) {
-            commentList.innerHTML += `<p><strong>${commenter}</strong> ${commentContent}</p>`
+            commentList.innerHTML += `<p><strong>${commenter}:</strong> ${commentContent}</p>`
             commentInput.value = ''
         } else alert('Unable to post comment!')
     })
