@@ -535,18 +535,6 @@ function loadDisplayMsgArea(friend) {
 
 const socket = io('', { withCredentials: true })
 
-//safari debugging consoles:
-socket.on('disconnect',(reason)=>{
-    console.log('disconnected because:',reason)
-})
-socket.on('reconnect_attempt',()=>{
-    console.log('reconnecting...')
-})
-socket.on('reconnect',(attemptNumber)=>{
-    console.log('Reconnected after:',attemptNumber,'attempt(s)')
-})
-
-
 function appendSocketMsg(msg) {
     const displayMsgArea = document.getElementById('displayMsgArea')
     const msgDiv = document.createElement('div')
