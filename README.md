@@ -1,6 +1,6 @@
 # Facemash
 
-Project information:  
+Project information:-
 This project uses Mongo Atlas for online database. The backend uses Node with Express.js, meanwhile the frontend is purely Javascript(Vanilla), no fancy react frameworks were used in this project. So you can call it MEN Stack project.  
 
 How to run?  
