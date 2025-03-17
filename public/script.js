@@ -678,3 +678,13 @@ document.getElementById('foot').addEventListener('click', () => {
 document.getElementById('closeAbout').addEventListener('click', () => {
     document.getElementById('aboutBox').style.display = 'none'
 })
+
+
+///heartbeat for safari
+setInterval(() => {
+    fetch('/heartbeat?ts=' + new Date().getTime(),{
+        method: 'GET',
+        credentials: 'include'
+    })
+    .catch(err=>console.error('Heartbeat err:',err))
+}, 20000);
