@@ -682,9 +682,6 @@ document.getElementById('closeAbout').addEventListener('click', () => {
 
 ///heartbeat for safari
 setInterval(() => {
-    fetch('/heartbeat?ts=' + new Date().getTime(),{
-        method: 'GET',
-        credentials: 'include'
-    })
+    fetch('/heartbeat?ts=' + new Date().getTime(),{method: 'GET'})
     .catch(err=>console.error('Heartbeat err:',err))
 }, 20000);
