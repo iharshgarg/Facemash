@@ -82,6 +82,11 @@ function isAuthenticated(req, res, next) {
 
 // HTTP server & socket.io setup
 const server = http.createServer(Facemash)
+
+//debugging safari:
+server.keepAliveTimeout=25000
+server.headersTimeout=26000
+
 const io = socketIo(server, {
   cors: {
     origin: ['https://facemash.in', 'https://www.facemash.in', 'https://facemash-57mh.onrender.com', 'http://192.168.1.5:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'],
@@ -499,6 +504,8 @@ Facemash.post('/search', isAuthenticated, async (req, res) => {
     res.status(500).send('server error')
   }
 })
+
+// Facemash.post() - for later if needed
 
 server.listen(port, '0.0.0.0', () => {
   console.log(`Facemash live on port ${port}!`)
