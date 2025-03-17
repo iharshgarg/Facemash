@@ -13,7 +13,7 @@ const port = 3000
 
 Facemash.use(express.json());
 Facemash.use(cors({
-  origin: ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://192.168.1.5:3000'],
+  origin: ['https://facemash.in', 'https://www.facemash.in', 'https://facemash-57mh.onrender.com', 'http://192.168.1.5:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'],
   credentials: true
 }))
 
@@ -84,7 +84,7 @@ function isAuthenticated(req, res, next) {
 const server = http.createServer(Facemash)
 const io = socketIo(server, {
   cors: {
-    origin: ['https://facemash.in', 'http://facemash.in', 'http://192.168.1.5:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'],
+    origin: ['https://facemash.in', 'https://www.facemash.in', 'https://facemash-57mh.onrender.com', 'http://192.168.1.5:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'],
     credentials: true
   }
 })
