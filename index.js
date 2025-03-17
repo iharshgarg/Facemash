@@ -83,15 +83,13 @@ function isAuthenticated(req, res, next) {
 // HTTP server & socket.io setup
 const server = http.createServer(Facemash)
 
-//debugging safari:
-server.keepAliveTimeout=25000
-server.headersTimeout=26000
-
 const io = socketIo(server, {
   cors: {
     origin: ['https://facemash.in', 'https://www.facemash.in', 'https://facemash-57mh.onrender.com', 'http://192.168.1.5:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'],
     credentials: true
-  }
+  },
+  pingInterval:10000,
+  pingTimeout:5000
 })
 // share session middleware
 io.use((socket, next) => {
