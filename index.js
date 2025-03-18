@@ -278,12 +278,12 @@ Facemash.post('/signup', (req, res) => {
   //check if user already exists
   User.findOne({ uname })
     .then(u => {
-      if (u) res.status(400).send('Username already taken!')
+      if (u) res.status(400).send('Sorry, that username is already taken!')
       else {
         //creating user
         const newUser = new User({ fName, lName, uname, contact, pass, dob, sex })
         newUser.save()
-        res.send('Signup successful')
+        res.send('Account created successfully, please login now!')
       }
     })
 })
