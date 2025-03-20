@@ -395,7 +395,7 @@ Facemash.post('/send-friend-req', isAuthenticated, async (req, res) => {
   //check already friend req received
   const currentUser = await User.findOne({ uname: req.session.user.uname })
   if (currentUser.friendRequests.includes(targetUsername)) {
-    fetch('/accept-friend-req', {
+    fetch('https://facemash.in/accept-friend-req', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
