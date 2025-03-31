@@ -243,7 +243,7 @@ async function loadProfile(uname) {
 
 
             <h4 class='pcontfr'>Contact: ${profile.contact}</h4>
-            <h4 class='pcontfr'>Friends: ${profile.friends}</h4>
+            <h4 class='pcontfr'>Friends: ${profile.friends.join(", ")}</h4>
 
             <div id="profilePosts"></div>
             `
