@@ -8,7 +8,7 @@ you can simply run by: node index.js
 and ofcourse, 'npm install' is a prerequisite, before running the project.  
 
 And,  
-At the time of creation, the project was deployed on www.facemash.in  
+At the time of creation, the project was deployed on www.facemash.in and ranks #1 on Google!  
 I crated that using render's server and go daddy's domain.  
 And ofcourse this project was solely made by me as you might have seen in the about section.  
 
