@@ -65,7 +65,7 @@ const Conversation = mongoose.model('Conversation', conversationSchema)
 
 //session middleware
 const sessionMiddleware = session({
-  secret: 'mysecretkey',
+  secret: process.env.SESSION_SECRET || 'fallback-secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
