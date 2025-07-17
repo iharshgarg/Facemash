@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const cors = require('cors')
 const session = require('express-session')
@@ -23,7 +24,7 @@ Facemash.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-mongoose.connect('mongodb+srv://iharshgarg:2NzAVwqf7J0UuyOU@cluster0.nb2qd.mongodb.net/facemash', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('failed to connect mongo-server', err))
 
 const userSchema = new mongoose.Schema({
