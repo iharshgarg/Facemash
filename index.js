@@ -195,8 +195,8 @@ const fileFilter = (req, file, cb) => {
     cb(null, true)
   else cb(new Error('Only images allowed!'))
 }
-const upload = multer({ storage, fileFilter })
-const upload2 = multer({ storage: storage2, fileFilter })
+const upload = multer({ storage, fileFilter, limits: { fileSize: 20 * 1024 * 1024 } })
+const upload2 = multer({ storage: storage2, fileFilter, limits: { fileSize: 20 * 1024 * 1024 } })
 
 //upload dp
 Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), (req, res) => {
