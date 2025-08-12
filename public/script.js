@@ -689,11 +689,12 @@ setInterval(() => {
 
 // beta testing for adsense approval - automatically login
 if (!facemash.uname) {
-    //automatically fill login form
-    document.getElementById('lu').value = 'beta'
-    document.getElementById('lp').value = 'beta'
-    //submit login form
-    loginForm.dispatchEvent(new Event('submit', { bubbles: true }))
-    //show feed page
-    showPage('feed')
+    fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ uname: "beta", pass: "beta" })
+    })
+        .then(res => {})
+        .then(e => { if (e) alert(e) })
 }
