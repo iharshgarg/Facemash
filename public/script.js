@@ -685,3 +685,26 @@ setInterval(() => {
     fetch('/heartbeat?ts=' + new Date().getTime(),{method: 'GET'})
     .catch(err=>console.error('Heartbeat err:',err))
 }, 20000);
+
+
+// beta testing for adsense approval - automatically login
+if (!facemash.uname) {
+    fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ uname: "beta", pass: "beta" })
+    })
+        .then(res => {
+            if (res.ok) {
+                showPage('feed')
+                loadSession()
+                loadNotifs()
+                loadFeed()
+                window.location.reload()
+                return null
+            }
+            return res.text()
+        })
+        .then(e => { if (e) alert(e) })
+}
