@@ -468,9 +468,10 @@ fetch('/session', { credentials: 'include' })
             loadSession()
             loadNotifs()
             loadFeed()
-        } else showPage('login')
+        // } else showPage('login')
+        }
     })
-    .catch(() => showPage('login'))
+    // .catch(() => showPage('login'))
 
 // chat
 function populateFriendBox() {
@@ -697,6 +698,7 @@ if (!facemash.uname) {
     })
         .then(res => {
             if (res.ok) {
+                // facemash.uname = "beta"
                 showPage('feed')
                 loadSession()
                 loadNotifs()
