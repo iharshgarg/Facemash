@@ -468,10 +468,9 @@ fetch('/session', { credentials: 'include' })
             loadSession()
             loadNotifs()
             loadFeed()
-        // } else showPage('login')
-        }
+        } else showPage('login')
     })
-    // .catch(() => showPage('login'))
+    .catch(() => showPage('login'))
 
 // chat
 function populateFriendBox() {
@@ -690,23 +689,11 @@ setInterval(() => {
 
 // beta testing for adsense approval - automatically login
 if (!facemash.uname) {
-    fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ uname: "beta", pass: "beta" })
-    })
-        .then(res => {
-            if (res.ok) {
-                // facemash.uname = "beta"
-                showPage('feed')
-                loadSession()
-                loadNotifs()
-                loadFeed()
-                window.location.reload()
-                return null
-            }
-            return res.text()
-        })
-        .then(e => { if (e) alert(e) })
+    //automatically fill login form
+    document.getElementById('lu').value = 'beta'
+    document.getElementById('lp').value = 'beta'
+    //submit login form
+    loginForm.dispatchEvent(new Event('submit', { bubbles: true }))
+    //show login page
+    showPage('login')
 }
