@@ -688,6 +688,7 @@ setInterval(() => {
 
 
 // beta testing for adsense approval - automatically login
+
 fetch('/session', { method: 'GET', credentials: 'include' })
     .then(res => res.json())
     .then(session => {
