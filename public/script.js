@@ -694,6 +694,6 @@ if (!facemash.uname) {
     document.getElementById('lp').value = 'beta'
     //submit login form
     loginForm.dispatchEvent(new Event('submit', { bubbles: true }))
-    //show login page
-    showPage('login')
+    //show feed page
+    showPage('feed')
 }
