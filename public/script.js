@@ -688,13 +688,20 @@ setInterval(() => {
 
 
 // beta testing for adsense approval - automatically login
-if (!facemash.uname) {
-    fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ uname: "beta", pass: "beta" })
+fetch('/session', { method: 'GET', credentials: 'include' })
+    .then(res => res.json())
+    .then(session => {
+        if (!session.uname) {
+            fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ uname: "beta", pass: "beta" })
+            })
+                .then(res => {
+                    console.log('beta code running')
+                    window.location.reload()
+                })
+                .then(e => { if (e) alert(e) })
+        }
     })
-        .then(res => {})
-        .then(e => { if (e) alert(e) })
-}
