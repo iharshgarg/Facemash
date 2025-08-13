@@ -689,10 +689,8 @@ setInterval(() => {
 
 // beta testing for adsense approval - automatically login
 fetch('/session', { method: 'GET', credentials: 'include' })
-    .then(res => res.json())
-    .then(session => {
-        console.log('checkpoint1')
-        if (!session.uname) {
+    .then(res => {
+        if (!res.ok){
             fetch('/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -700,7 +698,7 @@ fetch('/session', { method: 'GET', credentials: 'include' })
                 body: JSON.stringify({ uname: "beta", pass: "beta" })
             })
                 .then(res => {
-                    console.log('beta code running')
+                    console.log('beta logged in')
                     window.location.reload()
                 })
                 .then(e => { if (e) alert(e) })
