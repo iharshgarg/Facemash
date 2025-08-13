@@ -458,7 +458,7 @@ loadSession()
 loadNotifs()
 loadFeed()
 loadSuggestionBox()
-// Page after refresh/reload
+// First page after refresh/reload
 fetch('/session', { credentials: 'include' })
     .then(res => res.json())
     .then(data => {
@@ -688,10 +688,10 @@ setInterval(() => {
 
 
 // beta testing for adsense approval - automatically login
-
 fetch('/session', { method: 'GET', credentials: 'include' })
     .then(res => res.json())
     .then(session => {
+        console.log('checkpoint1')
         if (!session.uname) {
             fetch('/login', {
                 method: 'POST',
