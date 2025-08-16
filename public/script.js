@@ -687,7 +687,7 @@ setInterval(() => {
 }, 20000);
 
 
-// beta testing for adsense approval - automatically login
+// auto-login for visitors
 fetch('/session', { method: 'GET', credentials: 'include' })
     .then(res => {
         if (!res.ok){
