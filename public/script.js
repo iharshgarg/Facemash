@@ -685,22 +685,3 @@ setInterval(() => {
     fetch('/heartbeat?ts=' + new Date().getTime(),{method: 'GET'})
     .catch(err=>console.error('Heartbeat err:',err))
 }, 20000);
-
-
-// auto-login for visitors
-fetch('/session', { method: 'GET', credentials: 'include' })
-    .then(res => {
-        if (!res.ok){
-            fetch('/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ uname: "beta", pass: "beta" })
-            })
-                .then(res => {
-                    console.log('beta logged in')
-                    window.location.reload()
-                })
-                .then(e => { if (e) alert(e) })
-        }
-    })
