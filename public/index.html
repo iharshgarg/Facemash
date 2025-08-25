@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="font.css">
     <link rel="stylesheet" href="style.css">
 
-<!--   For Google   -->
+    <!--   For Google   -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -27,38 +28,48 @@
     }
     </script>
 
+    <!-- Google tag (gtag.js) for Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JW5K04N1X6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-JW5K04N1X6');
+    </script>
+
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6606220388913841"
      crossorigin="anonymous"></script> -->
 </head>
 
-    
+
 <body>
     <nav style="display: none;">
         <div id="blueBar">
 
             <div class="logo" id="logo">facemash</div>
 
-        <!-- Search -->
-        <div id="searchBarAndList">
-            <div id="searchBarDiv">
-                <input type="text" id="searchBar" placeholder="🔍 Search by Name, Email or Phone">
+            <!-- Search -->
+            <div id="searchBarAndList">
+                <div id="searchBarDiv">
+                    <input type="text" id="searchBar" placeholder="🔍 Search by Name, Email or Phone">
+                </div>
+                <div id="searchResults"></div>
             </div>
-            <div id="searchResults"></div>
-        </div>
 
-        <div id="navBtnsDiv">
-            <!-- User Button -->
-            <div id="userBtn" class="navBtn" role="button" tabindex="0">
-                <img id="navDP" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover;" />
-                <strong>
-                    <div id="navName"></div>
-                </strong>
+            <div id="navBtnsDiv">
+                <!-- User Button -->
+                <div id="userBtn" class="navBtn" role="button" tabindex="0">
+                    <img id="navDP" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover;" />
+                    <strong>
+                        <div id="navName"></div>
+                    </strong>
+                </div>
+                <!-- Home Button -->
+                <div id="homeBtn" class="navBtn" role="button" tabindex="0"><strong>Home</strong></div>
+                <!-- Logout Button -->
+                <div id="logoutBtn" class="navBtn" role="button" tabindex="0"><strong>Logout</strong></div>
             </div>
-            <!-- Home Button -->
-            <div id="homeBtn" class="navBtn" role="button" tabindex="0"><strong>Home</strong></div>
-            <!-- Logout Button -->
-            <div id="logoutBtn" class="navBtn" role="button" tabindex="0"><strong>Logout</strong></div>
-        </div>
 
         </div>
 
@@ -82,7 +93,9 @@
             <img id="minImg" src="/min.png" height="100px">
             <form id="signupForm">
                 <div id="signupFormDiv">
-                    <div><h1 style="margin: 0;" id="createAcc">Create an account</h1></div>
+                    <div>
+                        <h1 style="margin: 0;" id="createAcc">Create an account</h1>
+                    </div>
                     <div style="color: gray;"><em>it's quick and easy!</em></div>
 
                     <div style="display: flex;" id="sName">
@@ -90,10 +103,12 @@
                         <div><input type="text" id="lName" class="hafBlank" placeholder="Last name" required></div>
                     </div>
                     <div><input type="text" id="su" class="fulBlank" placeholder="Username" required></div>
-                    <div><input type="text" id="contact" class="fulBlank" placeholder="Mobile number or Email" required></div>
+                    <div><input type="text" id="contact" class="fulBlank" placeholder="Mobile number or Email" required>
+                    </div>
                     <div style="display: flex;">
                         <div><input type="password" id="sp" class="hafBlank" placeholder="Password" required></div>
-                        <div><input type="password" id="cp" class="hafBlank" placeholder="Confirm password" required></div>
+                        <div><input type="password" id="cp" class="hafBlank" placeholder="Confirm password" required>
+                        </div>
                     </div>
 
                     <div style="display: flex; margin-top: 2vh;">
@@ -108,7 +123,8 @@
                         <label for="female">Female</label>
                     </div>
                     <div style="margin-bottom: 10vh;"><button type="submit"
-                            style="font-size:large;width: 150px;padding: 5px;background-color: rgb(114, 157, 88);color: white;border-radius: 5px;"><strong>Sign Up</strong></button></div>
+                            style="font-size:large;width: 150px;padding: 5px;background-color: rgb(114, 157, 88);color: white;border-radius: 5px;"><strong>Sign
+                                Up</strong></button></div>
                 </div>
             </form>
         </div>
@@ -182,7 +198,7 @@
 
         <h1>Facemash.in | Facemash India</h1>
         <p>Welcome to facemash.in - India's Own Facebook!</p>
-        
+
         <h2>Credits-</h2>
         <p>Frontend Developer: Harsh Agarwal</p>
         <p>Backend Developer: Harsh Agarwal</p>
@@ -206,4 +222,5 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
