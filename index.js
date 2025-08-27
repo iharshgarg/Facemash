@@ -24,6 +24,11 @@ Facemash.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
+// For ezoic ads.txt compliance
+Facemash.get('/ads.txt', (req, res) => {
+  res.redirect(301, 'https://srv.adstxtmanager.com/19390/facemash.in');
+});
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('failed to connect mongo-server', err))
 
