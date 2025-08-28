@@ -393,13 +393,21 @@ footer {
     width: 150px;
 }
 
-#downloadBtn{
-    cursor: pointer;
-    display: inline-block;
-    width: 150px;
-    height: auto;
+#aboutLinks {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between icons */
 }
 
+.socialIcon {
+    cursor: pointer;
+    height: 45px;
+    transition: transform 0.2s ease;
+}
+
+.socialIcon:hover {
+    transform: scale(1.1); /* little zoom on hover */
+}
 
 @media only screen and (max-width: 475px) {
     #aboutBox {
