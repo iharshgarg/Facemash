@@ -409,6 +409,17 @@ footer {
     transform: scale(1.1); /* little zoom on hover */
 }
 
+/* advertisement */
+.bnr-ad {
+    margin: 20px auto; /* Adds a 20px margin top and bottom, and centers horizontally */
+    padding: 10px; /* Adds 10px of padding on all sides */
+    width: 300px; /* A fixed width is needed for margin: 0 auto to work */
+}
+
+.mob-ad{
+    display: none;
+}
+
 @media only screen and (max-width: 475px) {
     #aboutBox {
         padding: 5vh 5vw;
@@ -516,5 +527,12 @@ footer {
     }
     #msgInput{
         font-size: smaller;
+    }
+
+    .pc-ad{
+        display: none;
+    }
+    .mob-ad{
+        display: block;
     }
 }
