@@ -41,7 +41,7 @@
 
 <body>
     <nav style="display: none;">
-        <div id="blueBar">
+        <div id="blueBar" style="z-index: 100;">
 
             <div class="logo" id="logo">facemash</div>
 
@@ -86,6 +86,34 @@
         </form>
 
         <div id="minDiv" style="display: flex;align-items: center;justify-content: space-around">
+
+            <div class="bnr-ad mob-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': '1c622a4c237d382921759dd4bf552196',
+                        'format': 'iframe',
+                        'height': 50,
+                        'width': 320,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript"
+                    src="//www.highperformanceformat.com/1c622a4c237d382921759dd4bf552196/invoke.js"></script>
+            </div>
+            <div class="bnr-ad pc-ad" style="position: absolute; left: 0vw; top : 20vh;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': 'b04aba4cd7f77631b13b5c97164926d8',
+                        'format': 'iframe',
+                        'height': 90,
+                        'width': 728,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript"
+                    src="//www.highperformanceformat.com/b04aba4cd7f77631b13b5c97164926d8/invoke.js"></script>
+            </div>
+
             <img id="minImg" src="/min.png" height="100px">
             <form id="signupForm">
                 <div id="signupFormDiv">
@@ -129,8 +157,35 @@
 
     <!-- Feed Page -->
     <div id="feedPage" style="display: none;">
-        <div id="createPostWrap">
 
+        <div class="bnr-ad pc-ad" style="position: fixed;top: 5%;">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '808b6b7ee17dab46ed41f4b48e576596',
+                    'format': 'iframe',
+                    'height': 600,
+                    'width': 160,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/808b6b7ee17dab46ed41f4b48e576596/invoke.js"></script>
+        </div>
+        <div class="bnr-ad pc-ad" style="position: fixed; left: 88vw;top: 5%;">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '808b6b7ee17dab46ed41f4b48e576596',
+                    'format': 'iframe',
+                    'height': 600,
+                    'width': 160,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/808b6b7ee17dab46ed41f4b48e576596/invoke.js"></script>
+        </div>
+
+        <div id="createPostWrap">
             <form id="createpostForm" enctype="multipart/form-data">
                 <textarea id="textBox" name="textBox" placeholder="What's on your mind?" rows="4" cols="50"></textarea>
                 <br>
@@ -140,11 +195,53 @@
         </div>
         </form>
 
+        <div class="bnr-ad pc-ad" style="width: 50%;">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': 'b04aba4cd7f77631b13b5c97164926d8',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/b04aba4cd7f77631b13b5c97164926d8/invoke.js"></script>
+        </div>
+
+        <div class="bnr-ad mob-ad" style="margin-bottom: 0; padding-bottom: 0;">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '1c622a4c237d382921759dd4bf552196',
+                    'format': 'iframe',
+                    'height': 50,
+                    'width': 320,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/1c622a4c237d382921759dd4bf552196/invoke.js"></script>
+        </div>
+
         <!-- Suggestion Box -->
         <div id="suggestionBoxWrap">
             <div id="suggestionHeading">Suggestions:</div>
             <div id="suggestionBox">
             </div>
+        </div>
+
+        <div class="bnr-ad mob-ad">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '111829ab52163bed4c1a2623d788fcdc',
+                    'format': 'iframe',
+                    'height': 250,
+                    'width': 300,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/111829ab52163bed4c1a2623d788fcdc/invoke.js"></script>
         </div>
 
         <div id="FeedPosts"></div>
