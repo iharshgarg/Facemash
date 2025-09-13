@@ -4,6 +4,10 @@ body {
     margin: 0;
 }
 
+#textBox {
+    font-size: x-large;
+}
+
 .post {
     border: 1px solid #ccc;
     padding: 10px;
@@ -422,10 +426,13 @@ footer {
 }
 
 @media only screen and (max-width: 475px) {
-    .post,#suggestionBox {
+
+    .post,
+    #suggestionBox {
         margin-left: 10vw;
         margin-right: 10vw;
     }
+
     #aboutBox {
         padding: 5vh 5vw;
     }
@@ -435,6 +442,7 @@ footer {
     }
 
     #textBox {
+        font-size: large;
         width: 75vw;
     }
 
