@@ -6,6 +6,7 @@ body {
 
 #textBox {
     font-size: x-large;
+    max-width: 65vw;
 }
 
 .post {
@@ -413,12 +414,8 @@ footer {
 
 /* advertisement */
 .bnr-ad {
-    margin: 20px auto;
-    /* Adds a 20px margin top and bottom, and centers horizontally */
+    margin: 10px;
     padding: 10px;
-    /* Adds 10px of padding on all sides */
-    width: 300px;
-    /* A fixed width is needed for margin: 0 auto to work */
 }
 
 .mob-ad {
@@ -444,6 +441,7 @@ footer {
     #textBox {
         font-size: large;
         width: 75vw;
+        max-width: none;
     }
 
     .logo {
