@@ -208,22 +208,12 @@ body {
     margin-top: 60px;
 }
 
-#suggestionBoxWrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 #suggestionBox {
+    margin-left: 14vw;
+    margin-right: 14vw;
+    display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 74vw;
-}
-
-#suggestionHeading {
-    margin-right: 30vw;
-    padding: 4px;
-    margin-top: 5px;
+    margin-top: 20px;
 }
 
 .commentSection {
@@ -432,7 +422,7 @@ footer {
 }
 
 @media only screen and (max-width: 475px) {
-    .post {
+    .post,#suggestionBox {
         margin-left: 10vw;
         margin-right: 10vw;
     }
