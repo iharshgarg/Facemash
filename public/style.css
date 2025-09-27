@@ -411,16 +411,6 @@ footer {
     /* little zoom on hover */
 }
 
-/* advertisement */
-.bnr-ad {
-    margin: 10px;
-    padding: 10px;
-}
-
-.mob-ad {
-    display: none;
-}
-
 @media only screen and (max-width: 475px) {
 
     .post,
@@ -542,13 +532,5 @@ footer {
 
     #msgInput {
         font-size: smaller;
-    }
-
-    .pc-ad {
-        display: none;
-    }
-
-    .mob-ad {
-        display: block;
     }
 }
