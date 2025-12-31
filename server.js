@@ -50,13 +50,28 @@ const postSchema = new mongoose.Schema({
 })
 
 const conversationSchema = new mongoose.Schema({
-  participants: { type: [String], required: true },
+  participants: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function (arr) {
+        return arr.length === 2 && arr[0] !== arr[1]
+      },
+      message: 'Conversation participants must be two different users'
+    }
+  },
   messages: [{
     sender: { type: String, required: true },
     content: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
   }]
 })
+
+// 🔒 ensure only ONE conversation per user pair
+conversationSchema.index(
+  { participants: 1 },
+  { unique: true }
+)
 
 const User = mongoose.model('User', userSchema)
 const Post = mongoose.model('Post', postSchema)
