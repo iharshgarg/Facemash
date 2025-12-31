@@ -125,13 +125,24 @@ io.on('connection', (socket) => {
     const sender = user.uname
     const recipient = data.to
     const messageContent = data.content
+    
+    // ❌ BLOCK self-messaging
+    if (!recipient || sender === recipient) {
+      return socket.emit('error', 'Cannot send message to yourself')
+    }
+
+    // ❌ BLOCK empty / whitespace-only messages
+    if (!messageContent || !messageContent.trim()) {
+      return
+    }
+
     const participants = [sender, recipient].sort()
 
     try {
       let conversation = await Conversation.findOne({ participants })
       if (!conversation)
         conversation = new Conversation({ participants, messages: [] })
-      const newMessage = { sender, content: messageContent, timestamp: new Date() }
+      const newMessage = { sender, content: messageContent.trim(), timestamp: new Date() }
       conversation.messages.push(newMessage)
       await conversation.save()
       socket.emit('private message', newMessage)
