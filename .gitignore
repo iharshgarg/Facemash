@@ -1,3 +1,11 @@
-/node_modules
-/disk
+# Dependencies
+node_modules/
+
+# App data
+disk/
+
+# Environment variables
 .env
+
+# OS files (macOS)
+.DS_Store
