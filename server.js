@@ -125,7 +125,7 @@ io.on('connection', (socket) => {
     const sender = user.uname
     const recipient = data.to
     const messageContent = data.content
-    
+
     // ❌ BLOCK self-messaging
     if (!recipient || sender === recipient) {
       return socket.emit('error', 'Cannot send message to yourself')
@@ -157,8 +157,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    console.log(`${user.uname} dissconnected`)
-    delete onlineUsers[user.uname]
+    console.log(`${user.uname} disconnected`)
+
+    if (onlineUsers[user.uname] === socket.id) {
+      delete onlineUsers[user.uname]
+    }
   })
 })
 
@@ -529,8 +532,8 @@ Facemash.post('/search', isAuthenticated, async (req, res) => {
 })
 
 //heartbeat for safari
-Facemash.get('/heartbeat',(req,res)=>{
-  res.set('Cache-Control','no-store')
+Facemash.get('/heartbeat', (req, res) => {
+  res.set('Cache-Control', 'no-store')
   res.send('OK')
 })
 
