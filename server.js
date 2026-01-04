@@ -305,16 +305,27 @@ Facemash.post('/login', (req, res) => {
 
 Facemash.post('/signup', (req, res) => {
   const { fName, lName, uname, contact, pass, dob, sex } = req.body
-  //check if user already exists
+
   User.findOne({ uname })
     .then(u => {
-      if (u) res.status(400).send('Sorry, that username is already taken!')
-      else {
-        //creating user
-        const newUser = new User({ fName, lName, uname, contact, pass, dob, sex })
-        newUser.save()
-        res.send('Account created successfully, please login now!')
+      if (u) {
+        return res.status(400).send('Sorry, that username is already taken!')
       }
+
+      const newUser = new User({ fName, lName, uname, contact, pass, dob, sex })
+
+      newUser.save()
+        .then(() => {
+          res.send('Account created successfully, please login now!')
+        })
+        .catch(err => {
+          // ✅ validation / schema failure
+          res.status(400).send('Invalid info provided! Please check!')
+        })
+    })
+    .catch(err => {
+      // optional safety net
+      res.status(500).send('Server error')
     })
 })
 
