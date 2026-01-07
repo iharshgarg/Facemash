@@ -435,17 +435,24 @@ Facemash.post('/send-friend-req', isAuthenticated, async (req, res) => {
 
   //check already friend req received
   const currentUser = await User.findOne({ uname: req.session.user.uname })
+
   if (currentUser.friendRequests.includes(targetUsername)) {
-    fetch('https://facemash.in/accept-friend-req', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: req.headers.cookie
-      },
-      body: JSON.stringify({ requesterUsername: targetUsername }),
-    })
-      .then(() => res.send('Friend request already exists, thus accepted!'))
-    return;
+
+    // 🔁 AUTO-ACCEPT FRIEND REQUEST (CORRECT WAY)
+
+    // add each other as friends
+    currentUser.friends.push(targetUsername)
+    targetUser.friends.push(req.session.user.uname)
+
+    // remove pending request
+    currentUser.friendRequests =
+      currentUser.friendRequests.filter(u => u !== targetUsername)
+
+    // save both users
+    await currentUser.save()
+    await targetUser.save()
+
+    return res.send('Friend request already existed, now accepted!')
   }
 
   targetUser.friendRequests.push(req.session.user.uname)
