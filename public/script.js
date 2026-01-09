@@ -467,9 +467,17 @@ createpostForm.addEventListener('submit', e => {
 
 function resetPostState() {
     isPosting = false
+
     const postBtn = createpostForm.querySelector('button[type="submit"]')
     postBtn.disabled = false
     postBtn.innerText = 'Post'
+
+    // 🔄 reset image selector UI
+    const postPhoto = document.getElementById('postPhoto')
+    postPhoto.value = ''
+
+    const uploadBtn = document.getElementById('uploadPhoto')
+    uploadBtn.innerText = 'Upload Photo'
 }
 
 document.getElementById('uploadPhoto').addEventListener('click', function () {
