@@ -4,6 +4,9 @@ facemash.fName = null
 facemash.lName = null
 facemash.friends = null
 
+// 🔒 Prevent multiple post submissions
+let isPosting = false
+
 const loginForm = document.getElementById('loginForm')
 const signupForm = document.getElementById('signupForm')
 const createpostForm = document.getElementById('createpostForm')
@@ -417,12 +420,23 @@ signupForm.addEventListener('submit', e => {
         })
         .then(data => alert(data))
 })
+
 createpostForm.addEventListener('submit', e => {
     e.preventDefault()
+
+    if (isPosting) return   // 🔒 block multiple submits
+    isPosting = true        // 🔐 lock posting
+
+    const postBtn = createpostForm.querySelector('button[type="submit"]')
+    postBtn.disabled = true
+    postBtn.innerText = 'Posting...'
+
     const postText = textBox.value.trim()
     const postPhoto = document.getElementById('postPhoto')
+
     if (!postText && postPhoto.files.length === 0) {
         alert("Post can't be empty!")
+        resetPostState()
         return
     }
 
@@ -437,13 +451,27 @@ createpostForm.addEventListener('submit', e => {
         credentials: 'include'
     })
         .then(res => res.text())
-        .then(data => {
-            textBox.value = '';
+        .then(() => {
+            textBox.value = ''
             postPhoto.value = ''
-            loadFeed();
+            loadFeed()
         })
-        .catch(e => console.error(e))
+        .catch(err => {
+            console.error(err)
+            alert('Failed to post. Try again.')
+        })
+        .finally(() => {
+            resetPostState()
+        })
 })
+
+function resetPostState() {
+    isPosting = false
+    const postBtn = createpostForm.querySelector('button[type="submit"]')
+    postBtn.disabled = false
+    postBtn.innerText = 'Post'
+}
+
 document.getElementById('uploadPhoto').addEventListener('click', function () {
     document.getElementById('postPhoto').click()
 })
@@ -682,6 +710,6 @@ document.getElementById('closeAbout').addEventListener('click', () => {
 
 ///heartbeat for safari
 setInterval(() => {
-    fetch('/heartbeat?ts=' + new Date().getTime(),{method: 'GET'})
-    .catch(err=>console.error('Heartbeat err:',err))
+    fetch('/heartbeat?ts=' + new Date().getTime(), { method: 'GET' })
+        .catch(err => console.error('Heartbeat err:', err))
 }, 20000);
