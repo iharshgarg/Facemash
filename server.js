@@ -259,22 +259,29 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
 
   try {
 
-    await cloudinary.api.resource(`dp/${uname}`)
+    const url = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/dp/${uname}`
 
-    const url = cloudinary.url(`dp/${uname}`, {
-      secure: true,
-      resource_type: 'image',
-      type: 'upload'
-    })
-    return res.redirect(url)
+    // Try loading image headers first (lightweight check)
+    const response = await fetch(url, { method: 'HEAD' })
 
-  } catch {
+    if (response.ok) {
+      return res.redirect(url)
+    }
 
+  } catch (e) {
+    console.error('Cloudinary check failed')
+  }
+
+  // fallback default
+  try {
     const user = await User.findOne({ uname })
 
     if (user?.sex === 'Female')
       return res.sendFile(path.join(publicFolder, 'female.jpg'))
 
+    return res.sendFile(path.join(publicFolder, 'male.jpg'))
+
+  } catch {
     return res.sendFile(path.join(publicFolder, 'male.jpg'))
   }
 })
@@ -284,11 +291,7 @@ Facemash.get('/pics/:image', isAuthenticated, (req, res) => {
 
   const { image } = req.params
 
-  const url = cloudinary.url(`pics/${image}`, {
-    secure: true,
-    resource_type: 'image',
-    type: 'upload'
-  })
+  const url = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/pics/${image}`
 
   res.redirect(url)
 })
