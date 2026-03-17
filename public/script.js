@@ -145,8 +145,10 @@ function loadSuggestionBox() {
     })
         .then(res => res.json())
         .then(users => {
+
             const suggestionBox = document.getElementById('suggestionBox')
             suggestionBox.innerHTML = ''
+
             suggestionBox.style.display = 'flex'
             suggestionBox.style.overflowX = 'auto'
             suggestionBox.style.padding = '10px'
@@ -154,38 +156,64 @@ function loadSuggestionBox() {
             suggestionBox.style.borderRadius = '10px'
             suggestionBox.style.backgroundColor = '#fff'
 
-            users.reverse().forEach(user => {
-                if (user.uname === facemash.uname) return
+            users = users.reverse()
 
-                const suggestionItem = document.createElement('div')
-                suggestionItem.classList.add('suggestionItem')
-                suggestionItem.style.display = 'flex'
-                suggestionItem.style.flexDirection = 'column'
-                suggestionItem.style.alignItems = 'center'
-                suggestionItem.style.marginRight = '15px'
-                suggestionItem.style.width = '80px'
-                suggestionItem.style.cursor = 'pointer'
+            let index = 0
+            const batchSize = 20
 
-                const dpImg = document.createElement('img')
-                dpImg.src = `/dp/${user.uname}`
-                dpImg.style.width = '60px'
-                dpImg.style.height = '60px'
-                dpImg.style.borderRadius = '50%'
-                dpImg.style.objectFit = 'cover'
-                dpImg.style.marginBottom = '5px'
+            function renderBatch() {
 
-                const fullName = document.createElement('span')
-                fullName.innerHTML = `<strong>${user.fName} ${user.lName}</strong>`
-                fullName.style.fontSize = '12px'
-                fullName.style.textAlign = 'center'
+                const slice = users.slice(index, index + batchSize)
 
+                slice.forEach(user => {
 
-                suggestionItem.addEventListener('click', () => loadProfile(user.uname))
+                    if (user.uname === facemash.uname) return
 
-                suggestionItem.appendChild(dpImg)
-                suggestionItem.appendChild(fullName)
-                suggestionBox.appendChild(suggestionItem)
+                    const suggestionItem = document.createElement('div')
+                    suggestionItem.classList.add('suggestionItem')
+                    suggestionItem.style.display = 'flex'
+                    suggestionItem.style.flexDirection = 'column'
+                    suggestionItem.style.alignItems = 'center'
+                    suggestionItem.style.marginRight = '15px'
+                    suggestionItem.style.width = '80px'
+                    suggestionItem.style.cursor = 'pointer'
+
+                    const dpImg = document.createElement('img')
+                    dpImg.src = `/dp/${user.uname}`
+                    dpImg.loading = 'lazy'   // ⭐ browser native lazy load
+                    dpImg.style.width = '60px'
+                    dpImg.style.height = '60px'
+                    dpImg.style.borderRadius = '50%'
+                    dpImg.style.objectFit = 'cover'
+                    dpImg.style.marginBottom = '5px'
+
+                    const fullName = document.createElement('span')
+                    fullName.innerHTML = `<strong>${user.fName} ${user.lName}</strong>`
+                    fullName.style.fontSize = '12px'
+                    fullName.style.textAlign = 'center'
+
+                    suggestionItem.addEventListener('click', () => loadProfile(user.uname))
+
+                    suggestionItem.appendChild(dpImg)
+                    suggestionItem.appendChild(fullName)
+                    suggestionBox.appendChild(suggestionItem)
+                })
+
+                index += batchSize
+            }
+
+            // first render
+            renderBatch()
+
+            // load more when scroll end
+            suggestionBox.addEventListener('scroll', () => {
+
+                if (suggestionBox.scrollLeft + suggestionBox.clientWidth >= suggestionBox.scrollWidth - 50) {
+                    renderBatch()
+                }
+
             })
+
         })
         .catch(err => console.error('err fetching suggestion box:', err))
 }
