@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Disk storage
+disk/
+
 # Environment variables
 .env
 
