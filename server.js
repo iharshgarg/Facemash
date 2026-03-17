@@ -261,7 +261,11 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
 
     await cloudinary.api.resource(`dp/${uname}`)
 
-    const url = cloudinary.url(`dp/${uname}`, { secure: true })
+    const url = cloudinary.url(`dp/${uname}`, {
+      secure: true,
+      resource_type: 'image',
+      type: 'upload'
+    })
     return res.redirect(url)
 
   } catch {
@@ -280,7 +284,11 @@ Facemash.get('/pics/:image', isAuthenticated, (req, res) => {
 
   const { image } = req.params
 
-  const url = cloudinary.url(`pics/${image}`, { secure: true })
+  const url = cloudinary.url(`pics/${image}`, {
+    secure: true,
+    resource_type: 'image',
+    type: 'upload'
+  })
 
   res.redirect(url)
 })
