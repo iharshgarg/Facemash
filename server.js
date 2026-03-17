@@ -266,19 +266,17 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
     ? 'dp_defaults:female'
     : 'dp_defaults:male'
 
-  const version = req.query.v || Date.now()
-
   const url = cloudinary.url(`dp/${uname}`, {
     secure: true,
     resource_type: 'image',
     type: 'upload',
     fetch_format: 'auto',
     quality: 'auto',
-    default_image: fallback,
-    version: version
+    default_image: fallback
   })
 
-  res.redirect(url)
+  // ⭐ cache busting using query param (NOT version)
+  res.redirect(url + `?v=${Date.now()}`)
 })
 
 // fetch post pics
