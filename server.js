@@ -256,9 +256,15 @@ Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), async (req, re
 })
 
 //fetch dp
-Facemash.get('/dp/:uname', isAuthenticated, (req, res) => {
+Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
 
   const { uname } = req.params
+
+  const user = await User.findOne({ uname }, 'sex')
+
+  const fallback = user?.sex === 'Female'
+    ? 'dp_defaults:female'
+    : 'dp_defaults:male'
 
   const version = req.query.v || Date.now()
 
@@ -268,6 +274,7 @@ Facemash.get('/dp/:uname', isAuthenticated, (req, res) => {
     type: 'upload',
     fetch_format: 'auto',
     quality: 'auto',
+    default_image: fallback,
     version: version
   })
 
