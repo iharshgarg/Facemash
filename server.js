@@ -260,12 +260,15 @@ Facemash.get('/dp/:uname', isAuthenticated, (req, res) => {
 
   const { uname } = req.params
 
+  const version = req.query.v || Date.now()
+
   const url = cloudinary.url(`dp/${uname}`, {
     secure: true,
     resource_type: 'image',
     type: 'upload',
     fetch_format: 'auto',
-    quality: 'auto'
+    quality: 'auto',
+    version: version
   })
 
   res.redirect(url)
