@@ -253,37 +253,13 @@ Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), async (req, re
 })
 
 //fetch dp
-Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
+Facemash.get('/dp/:uname', isAuthenticated, (req, res) => {
 
   const { uname } = req.params
 
-  try {
+  const url = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/dp/${uname}`
 
-    const url = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/dp/${uname}`
-
-    // Try loading image headers first (lightweight check)
-    const response = await fetch(url, { method: 'HEAD' })
-
-    if (response.ok) {
-      return res.redirect(url)
-    }
-
-  } catch (e) {
-    console.error('Cloudinary check failed')
-  }
-
-  // fallback default
-  try {
-    const user = await User.findOne({ uname })
-
-    if (user?.sex === 'Female')
-      return res.sendFile(path.join(publicFolder, 'female.jpg'))
-
-    return res.sendFile(path.join(publicFolder, 'male.jpg'))
-
-  } catch {
-    return res.sendFile(path.join(publicFolder, 'male.jpg'))
-  }
+  res.redirect(url)
 })
 
 // fetch post pics
