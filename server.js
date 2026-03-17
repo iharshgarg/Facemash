@@ -28,6 +28,17 @@ Facemash.get('/', (req, res) => {
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('failed to connect mongo-server', err))
 
+
+
+const { v2: cloudinary } = require('cloudinary')
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+
+
 const userSchema = new mongoose.Schema({
   uname: { type: String, unique: true, required: true },
   fName: String,
@@ -194,32 +205,10 @@ if (!fs.existsSync(dpFolder))
 const picsFolder = path.join(__dirname, 'disk', 'pics')
 if (!fs.existsSync(picsFolder))
   fs.mkdirSync(picsFolder)
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, dpFolder)
-  },
-  filename: function (req, file, cb) {
 
-    //delete old dp
-    const imgExt = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
-    imgExt.forEach(ext => {
-      const oldDP = path.join(dpFolder, req.session.user.uname + ext)
-      if (fs.existsSync(oldDP))
-        fs.unlinkSync(oldDP)
-    })
-    // save new dp
-    const newExt = path.extname(file.originalname)
-    cb(null, req.session.user.uname + newExt)
-  }
-})
-const storage2 = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, picsFolder)
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`)
-  }
-})
+const storage = multer.memoryStorage()
+const storage2 = multer.memoryStorage()
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image/'))
     cb(null, true)
@@ -229,40 +218,71 @@ const upload = multer({ storage, fileFilter, limits: { fileSize: 20 * 1024 * 102
 const upload2 = multer({ storage: storage2, fileFilter, limits: { fileSize: 20 * 1024 * 1024 } })
 
 //upload dp
-Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), (req, res) => {
+Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), async (req, res) => {
   if (!req.file)
     return res.status(400).send('No file received!')
-  res.send('Profile picture uploaded successfully!')
+
+  try {
+
+    const ext = path.extname(req.file.originalname)
+    const publicId = `dp/${req.session.user.uname}`
+
+    // delete old dp from cloudinary
+    await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
+
+    // upload new dp
+    await cloudinary.uploader.upload_stream(
+      {
+        folder: 'dp',
+        public_id: req.session.user.uname,
+        resource_type: 'image'
+      },
+      (error, result) => {
+        if (error) {
+          console.error(error)
+          return res.status(500).send('Upload failed!')
+        }
+        res.send('Profile picture uploaded successfully!')
+      }
+    ).end(req.file.buffer)
+
+  } catch (e) {
+    console.error(e)
+    res.status(500).send('Upload error!')
+  }
 })
 
 //fetch dp
 Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
+
   const { uname } = req.params
-  let filePath = null
-  const imgExt = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
-  imgExt.forEach(ext => {
-    const dp = path.join(dpFolder, uname + ext)
-    if (fs.existsSync(dp))
-      filePath = dp
-  })
-  if (!filePath) {
-    try {
-      const user = await User.findOne({ uname })
-      if (user.sex === 'Female')
-        filePath = path.join(publicFolder, 'female.jpg')
-      else filePath = path.join(publicFolder, 'male.jpg')
-    } catch (e) {
-      console.error(e)
-      filePath = path.join(publicFolder, 'male.jpg')
-    }
+
+  try {
+
+    await cloudinary.api.resource(`dp/${uname}`)
+
+    const url = cloudinary.url(`dp/${uname}`, { secure: true })
+    return res.redirect(url)
+
+  } catch {
+
+    const user = await User.findOne({ uname })
+
+    if (user?.sex === 'Female')
+      return res.sendFile(path.join(publicFolder, 'female.jpg'))
+
+    return res.sendFile(path.join(publicFolder, 'male.jpg'))
   }
-  res.sendFile(filePath)
 })
 
 // fetch post pics
 Facemash.get('/pics/:image', isAuthenticated, (req, res) => {
+
   const { image } = req.params
-  res.sendFile(path.join(picsFolder, image))
+
+  const url = cloudinary.url(`pics/${image}`, { secure: true })
+
+  res.redirect(url)
 })
 
 Facemash.get('/session', isAuthenticated, async (req, res) => {
@@ -341,20 +361,44 @@ Facemash.post('/logout', (req, res) => {
   })
 })
 
-Facemash.post('/createPost', isAuthenticated, upload2.single('pic'), (req, res) => {
+Facemash.post('/createPost', isAuthenticated, upload2.single('pic'), async (req, res) => {
+
   const { content } = req.body
-  if ((!content || content.trim() === '') && !req.file) return res.status(400).send('Post cannot be empty!')
-  const newPost = new Post(
-    {
-      uname: req.session.user.uname,
-      fName: req.session.user.fName,
-      lName: req.session.user.lName,
-      content: content || "",
-      image: req.file ? req.file.filename : ""
-    }
-  )
-  newPost.save()
-    .then(() => res.send('Post created successfully!'))
+  if ((!content || content.trim() === '') && !req.file)
+    return res.status(400).send('Post cannot be empty!')
+
+  let filename = ""
+
+  if (req.file) {
+    const uniqueName = `${Date.now()}-${req.file.originalname}`
+
+    await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          folder: 'pics',
+          public_id: uniqueName,
+          resource_type: 'image'
+        },
+        (error, result) => {
+          if (error) reject(error)
+          else resolve(result)
+        }
+      ).end(req.file.buffer)
+    })
+
+    filename = uniqueName
+  }
+
+  const newPost = new Post({
+    uname: req.session.user.uname,
+    fName: req.session.user.fName,
+    lName: req.session.user.lName,
+    content: content || "",
+    image: filename
+  })
+
+  await newPost.save()
+  res.send('Post created successfully!')
 })
 
 Facemash.get('/feed', isAuthenticated, async (req, res) => {
