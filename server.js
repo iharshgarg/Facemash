@@ -372,13 +372,18 @@ Facemash.post('/createPost', isAuthenticated, upload2.single('pic'), async (req,
   let filename = ""
 
   if (req.file) {
-    const uniqueName = `${Date.now()}-${req.file.originalname}`
+
+    const ext = path.extname(req.file.originalname)        // .png
+    const base = path.basename(req.file.originalname, ext) // Bharatvarsh
+
+    const uniqueBase = `${Date.now()}-${base}`             // 1773750643787-Bharatvarsh
+    const uniqueName = `${uniqueBase}${ext}`               // 1773750643787-Bharatvarsh.png
 
     await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           folder: 'pics',
-          public_id: uniqueName,
+          public_id: uniqueBase,   // ⭐ NO extension here
           resource_type: 'image'
         },
         (error, result) => {
@@ -388,7 +393,7 @@ Facemash.post('/createPost', isAuthenticated, upload2.single('pic'), async (req,
       ).end(req.file.buffer)
     })
 
-    filename = uniqueName
+    filename = uniqueName   // ⭐ Mongo still stores full filename (unchanged)
   }
 
   const newPost = new Post({
