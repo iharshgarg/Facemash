@@ -228,7 +228,10 @@ Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), async (req, re
     const publicId = `dp/${req.session.user.uname}`
 
     // delete old dp from cloudinary
-    await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
+    await cloudinary.uploader.destroy(publicId, {
+      resource_type: 'image',
+      invalidate: true
+    })
 
     // upload new dp
     await cloudinary.uploader.upload_stream(
@@ -257,7 +260,13 @@ Facemash.get('/dp/:uname', isAuthenticated, (req, res) => {
 
   const { uname } = req.params
 
-  const url = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/dp/${uname}`
+  const url = cloudinary.url(`dp/${uname}`, {
+    secure: true,
+    resource_type: 'image',
+    type: 'upload',
+    fetch_format: 'auto',
+    quality: 'auto'
+  })
 
   res.redirect(url)
 })
@@ -267,7 +276,13 @@ Facemash.get('/pics/:image', isAuthenticated, (req, res) => {
 
   const { image } = req.params
 
-  const url = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/pics/${image}`
+  const url = cloudinary.url(`pics/${image}`, {
+    secure: true,
+    resource_type: 'image',
+    type: 'upload',
+    fetch_format: 'auto',
+    quality: 'auto'
+  })
 
   res.redirect(url)
 })
