@@ -263,8 +263,10 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
   const user = await User.findOne({ uname }, 'sex')
 
   const fallback = user?.sex === 'Female'
-    ? 'dp_defaults:female'
-    : 'dp_defaults:male'
+    ? 'dp_defaults:female.jpg'
+    : 'dp_defaults:male.jpg'
+
+  const version = req.query.v || Date.now()
 
   const url = cloudinary.url(`dp/${uname}`, {
     secure: true,
@@ -272,11 +274,11 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
     type: 'upload',
     fetch_format: 'auto',
     quality: 'auto',
-    default_image: fallback
+    default_image: fallback,
+    version: version
   })
 
-  // ⭐ cache busting using query param (NOT version)
-  res.redirect(url + `?v=${Date.now()}`)
+  res.redirect(url)
 })
 
 // fetch post pics
