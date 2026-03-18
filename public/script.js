@@ -11,8 +11,7 @@ function isAndroid() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    if (isAndroid() && !localStorage.getItem("hideAppBanner")) {
-
+    if (isAndroid()) {
         const banner = document.getElementById("androidAppBanner");
         banner.style.display = "block";
 
@@ -20,11 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("closeAppBanner").addEventListener("click", function () {
-
         document.getElementById("androidAppBanner").style.display = "none";
         document.body.style.marginTop = "0px";
-
-        localStorage.setItem("hideAppBanner", "yes");
     });
 
 });
