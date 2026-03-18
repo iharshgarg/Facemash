@@ -4,6 +4,32 @@ facemash.fName = null
 facemash.lName = null
 facemash.friends = null
 
+// ANDROID APP BANNER LOGIC
+function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (isAndroid() && !localStorage.getItem("hideAppBanner")) {
+
+        const banner = document.getElementById("androidAppBanner");
+        banner.style.display = "block";
+
+        // push whole website down
+        document.body.style.paddingTop = "60px";
+    }
+
+    document.getElementById("closeAppBanner").addEventListener("click", function () {
+        document.getElementById("androidAppBanner").style.display = "none";
+        document.body.style.paddingTop = "0px";
+
+        localStorage.setItem("hideAppBanner", "yes"); // don't show again
+    });
+
+});
+
+
 // 🔒 Prevent multiple post submissions
 let isPosting = false
 
