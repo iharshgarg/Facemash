@@ -53,18 +53,22 @@
 <body>
     <!-- Android App Banner -->
     <div id="androidAppBanner" style="display:none;">
-        <button id="closeAppBanner">✕</button>
 
-        <div id="appBannerContent">
-            <img src="googleplay.png" id="playStoreImg">
-            <div>
-                <strong>Get Facemash App</strong>
-                <p>Faster experience on Android</p>
+        <div id="bannerInner">
+
+            <button id="closeAppBanner">✕</button>
+
+            <div id="bannerText">
+                <div class="bannerTitle">Get Facemash App</div>
+                <div class="bannerSub">Faster experience on Android</div>
             </div>
-            <a href="https://play.google.com/store/apps/details?id=com.facemash.app" target="_blank" id="installBtn">
-                Install
+
+            <a href="https://play.google.com/store/apps/details?id=com.facemash.app" target="_blank">
+                <img src="googleplay.png" id="playInstallBtn">
             </a>
+
         </div>
+
     </div>
 
     <nav style="display: none;">

@@ -16,15 +16,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const banner = document.getElementById("androidAppBanner");
         banner.style.display = "block";
 
-        // push whole website down
-        document.body.style.paddingTop = "60px";
+        document.body.style.marginTop = banner.offsetHeight + "px";
     }
 
     document.getElementById("closeAppBanner").addEventListener("click", function () {
-        document.getElementById("androidAppBanner").style.display = "none";
-        document.body.style.paddingTop = "0px";
 
-        localStorage.setItem("hideAppBanner", "yes"); // don't show again
+        document.getElementById("androidAppBanner").style.display = "none";
+        document.body.style.marginTop = "0px";
+
+        localStorage.setItem("hideAppBanner", "yes");
     });
 
 });
