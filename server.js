@@ -444,7 +444,7 @@ Facemash.post('/post-comment', isAuthenticated, async (req, res) => {
   }
 })
 
-Facemash.get('/users/:uname', isAuthenticated, async (req, res) => {
+Facemash.get('/users/:uname', async (req, res) => {
   // Load profile
   const { uname } = req.params;
   try {
@@ -558,7 +558,7 @@ Facemash.post('/reject-friend-req', isAuthenticated, async (req, res) => {
   res.send('Friend request Declined!')
 })
 
-Facemash.get('/suggestion-box', isAuthenticated, async (req, res) => {
+Facemash.get('/suggestion-box', async (req, res) => {
   try {
     const users = await User.find({}, 'uname fName lName')
     res.json(users)
