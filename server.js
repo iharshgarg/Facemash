@@ -255,7 +255,7 @@ Facemash.post('/upload-dp', isAuthenticated, upload.single('dp'), async (req, re
 })
 
 //fetch dp
-Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
+Facemash.get('/dp/:uname', async (req, res) => {
 
   const { uname } = req.params
 
@@ -281,7 +281,7 @@ Facemash.get('/dp/:uname', isAuthenticated, async (req, res) => {
 })
 
 // fetch post pics
-Facemash.get('/pics/:image', isAuthenticated, (req, res) => {
+Facemash.get('/pics/:image', (req, res) => {
 
   const { image } = req.params
 
